@@ -1,9 +1,33 @@
+fun For4 (forward
+forward
+forward
+forward)
+turn right
+For4
+forward
+turn left
+forward
+forward
+turn left
 forward
 forward
 turn right
+For4
+forward
+turn left
+forward
+attack
+turn right
 forward
 turn right
-if<NO WALL>(  while<NO ENEMY> (forward) attack)
-while<NO WALL> (forward if<WALL> (turn right) if<TRAP> (turn left))
+forward
+forward
+attack
+turn left
+forward
+turn left
+forward
 turn right
+disarm
+forward
 forward

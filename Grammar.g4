@@ -6,7 +6,10 @@ statement : if_statement
           | while_statement
           | action
 		  | function
+		  | function_call
           ;
+
+function_call: NAME;
 if_statement : IF '<' cond_help '>' '(' statements ')' ;
 while_statement : WHILE '<' cond_help '>' '(' statements ')' ;
 
@@ -18,7 +21,9 @@ cond_help : NEGATION condition
 
 condition : WALL
 		  | ENEMY
-		  | TRAP;
+		  | TRAP
+		  |TREASURE
+		  ;
 
 action : FORWARD
        | TURN direction
@@ -38,6 +43,7 @@ WHILE:      'while';
 NEGATION:   'NO';
 WALL:       'WALL';
 ENEMY:      'ENEMY';
+TREASURE:   'TREASURE';
 TRAP:       'TRAP';
 AND:		'AND';
 OR:		    'OR';

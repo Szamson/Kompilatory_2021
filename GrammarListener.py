@@ -26,6 +26,15 @@ class GrammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by GrammarParser#function_call.
+    def enterFunction_call(self, ctx:GrammarParser.Function_callContext):
+        pass
+
+    # Exit a parse tree produced by GrammarParser#function_call.
+    def exitFunction_call(self, ctx:GrammarParser.Function_callContext):
+        pass
+
+
     # Enter a parse tree produced by GrammarParser#if_statement.
     def enterIf_statement(self, ctx:GrammarParser.If_statementContext):
         pass

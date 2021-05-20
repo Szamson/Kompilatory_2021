@@ -1,3 +1,4 @@
+import time
 class Statement:
     def execute(self):
         return
@@ -14,7 +15,16 @@ class ifStatement(Statement):
         if self.cond.getValue():
             executeCommands(self.body)
 
+class functionStatement(Statement):
 
+    def __init__(self, _body):
+        self.body = _body
+
+
+    def execute(self):
+        print("Executing function")
+        if self.body is not None:
+            executeCommands(self.body)
 
 class whileStatement(Statement):
 
@@ -69,3 +79,4 @@ def executeCommands(body):
     if body is not None:
         for a in body:
             a.execute()
+            #time.sleep(1)

@@ -29,7 +29,7 @@ class Gameclass:
         "Size"
         self.display_width = 800
         self.display_height = 600
-        self.field_size = 10  # liczba kratek
+        self.field_size = 15  # liczba kratek
         self.menu_width = 600 / 20
         self.menuX = min(self.display_width, self.display_height)
 
@@ -43,11 +43,11 @@ class Gameclass:
         "Data"
         self.direction = Compass.NORTH
         self.field = np.zeros((10, 10))
-        self.position = (7, 7)
+        self.position = (1, 13)
         self.instructions = []
         self.instructions_counter = 0
 
-        self.makeMap()
+        self.makeMap1()
 
     def drawGrid(self):
         """"
@@ -99,6 +99,69 @@ class Gameclass:
         self.field[0:, 9] = Map.WALL
         self.field[0, 0:] = Map.WALL
         self.field[9, 0:] = Map.WALL
+
+    def makeMap1(self):
+
+        self.field = np.transpose(np.array([[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                                            [2, 0, 0, 2, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 2, 2, 2, 4, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 3, 0, 2, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2],
+                                            [2, 2, 2, 2, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                                            ]))
+
+        self.field[self.position] = Map.HERO
+
+    def makeMap2(self):
+
+        self.field = np.transpose(np.array([[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2],
+                                            [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 3, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2],
+                                            [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                                            ]))
+
+        self.field[self.position] = Map.HERO
+
+    def makeMap3(self):
+
+        self.field = np.transpose(np.array([[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2],
+                                            [2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 2, 0, 2],
+                                            [2, 2, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 2],
+                                            [2, 0, 2, 2, 0, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2],
+                                            [2, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2],
+                                            [2, 2, 2, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 5, 2],
+                                            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                                            ]))
+
+        self.field[self.position] = Map.HERO
 
     def moveForward(self):
 
@@ -162,8 +225,6 @@ class Gameclass:
 
         return field_in_front
 
-
-
     def start(self, statements_to_execute):
 
         while 1:
@@ -177,7 +238,7 @@ class Gameclass:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
 
-                    if len(statements_to_execute)>0:
+                    if len(statements_to_execute) > 0:
                         statements_to_execute.pop(0).execute()
                     else:
                         pygame.quit()
