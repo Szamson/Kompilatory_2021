@@ -1,0 +1,9 @@
+forward
+forward
+turn right
+forward
+turn right
+if<NO WALL>(  while<NO ENEMY> (forward) attack)
+while<NO WALL> (forward if<WALL> (turn right) if<TRAP> (turn left))
+turn right
+forward

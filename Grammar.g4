@@ -1,9 +1,6 @@
 grammar Grammar;
 
-start: statements;
-
-statements : statement
-           | statements statement
+statements : statement+
            ;
 statement : if_statement
           | while_statement
@@ -15,8 +12,8 @@ while_statement : WHILE '<' cond_help '>' '(' statements ')' ;
 
 cond_help : NEGATION condition
 		  | condition
-		  | cond_help OR cond_help
-		  | cond_help AND cond_help
+		  | cond_help OR condition
+		  | cond_help AND condition
 		  ;
 
 condition : WALL

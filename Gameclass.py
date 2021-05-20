@@ -46,8 +46,8 @@ class Gameclass:
         self.position = (7, 7)
         self.instructions = []
         self.instructions_counter = 0
-        self.readFromFile("..\example.txt")
-        print(self.instructions)
+
+        self.makeMap()
 
     def drawGrid(self):
         """"
@@ -91,10 +91,14 @@ class Gameclass:
 
     def makeMap(self):
         self.field[self.position] = Map.HERO
-        self.field[1:4, 4] = Map.WALL
+        self.field[1:5, 4] = Map.WALL
         self.field[5, 5] = Map.TRAP
-        self.field[6, 9] = Map.TREASURE
+        self.field[6, 8] = Map.TREASURE
         self.field[8, 8] = Map.ENEMY
+        self.field[0:, 0] = Map.WALL
+        self.field[0:, 9] = Map.WALL
+        self.field[0, 0:] = Map.WALL
+        self.field[9, 0:] = Map.WALL
 
     def moveForward(self):
 
@@ -160,8 +164,8 @@ class Gameclass:
 
 
 
-    def start(self):
-        self.makeMap()
+    def start(self, statements_to_execute):
+
         while 1:
             self.fillMap()
             self.drawGrid()
@@ -172,7 +176,12 @@ class Gameclass:
                     pygame.quit()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.moveForward()
+
+                    if len(statements_to_execute)>0:
+                        statements_to_execute.pop(0).execute()
+                    else:
+                        pygame.quit()
+                    print(statements_to_execute)
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == ord("a"):

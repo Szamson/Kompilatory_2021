@@ -5,18 +5,20 @@ from GrammarListener import GrammarListener
 import Gameclass
 
 
+
 class HeroListener(GrammarListener):
     def __init__(self, output, game_field):
         self.output = output
         self.game_field = game_field
-        # self.tasks_to_do = []
-        game_field.start()
+        self.statements_to_execute = []
 
-    def exitAction(self, ctx: GrammarParser.ActionContext):
-        action = ctx.getText()
+        #game_field.start()
 
-    def enterIf_statement(self, ctx:GrammarParser.If_statementContext):
-        cond = ctx.cond_help()
+    def exitStatements(self, ctx:GrammarParser.StatementsContext):
+        self.game_field.start(self.statements_to_execute)
+
+    def 
+
 
     
 
