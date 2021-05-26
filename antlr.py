@@ -8,19 +8,20 @@ from Gameclass import Gameclass
 from Statement import executeCommands
 
 
-def main(argv):
+def main(argv, map):
     input = FileStream(argv)
     lexer = GrammarLexer(input)
     stream = CommonTokenStream(lexer)
     parser = GrammarParser(stream)
     tree = parser.statements()
 
-    field = Gameclass()
+    field = Gameclass(map)
 
     print("First pass:")
     fv = FirstPassVisitor(field)
     f = fv.visit(tree)
-    print(list(f))
+    if (len(list(f)) > 0):
+        print(list(f))
 
     print("Second pass:")
     v = HeroVisitor(field, f)
@@ -29,9 +30,11 @@ def main(argv):
     print("In main:")
     print(st)
     print("Executing:")
-    #executeCommands(st)
+    # executeCommands(st)
     field.start(st)
 
 
 if __name__ == '__main__':
-    main("code")
+    main("code4", 4)
+
+

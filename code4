@@ -1,0 +1,48 @@
+fun forenemy(
+	while<NO ENEMY>(
+		forward
+		if<WALL>(
+			turn left
+		)
+	)
+	attack
+)
+
+fun foo(
+	turn right
+	forward
+	forward
+	forward
+	forward
+)
+
+fun back(
+	turn left
+	turn left
+	forward
+	turn right
+	forward
+	forward
+	foo
+	foo
+)
+
+turn right
+while<NO WALL>(
+	forward
+)
+turn left
+forward
+forward
+forward
+forward
+forward
+forward
+forward
+turn right
+forenemy
+back
+forward
+forward
+turn right
+forenemy

@@ -1,0 +1,14 @@
+while<NO WALL>(
+	if<TRAP>(
+		disarm
+	)
+	if<ENEMY>(
+		attack
+	)
+
+	forward
+
+	if<WALL>(
+		turn right
+	)
+)

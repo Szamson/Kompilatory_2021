@@ -22,7 +22,7 @@ class Map(IntEnum):
 
 class Gameclass:
 
-    def __init__(self):
+    def __init__(self, map):
 
         pygame.init()
 
@@ -47,7 +47,14 @@ class Gameclass:
         self.instructions = []
         self.instructions_counter = 0
 
-        self.makeMap1()
+        if map == 1:
+            self.makeMap1()
+        elif map == 2:
+            self.makeMap2()
+        elif map == 3:
+            self.makeMap3()
+        else:
+            self.makeMap4()
 
     def drawGrid(self):
         """"
@@ -124,17 +131,17 @@ class Gameclass:
     def makeMap2(self):
 
         self.field = np.transpose(np.array([[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-                                            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 2],
                                             [2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2],
-                                            [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2],
+                                            [2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2],
                                             [2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 2],
-                                            [2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2],
-                                            [2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2],
-                                            [2, 0, 2, 0, 2, 0, 2, 3, 2, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 4, 0, 0, 0, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 2, 2, 4, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 2, 5, 2, 0, 2, 0, 2, 0, 2],
                                             [2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
                                             [2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2],
-                                            [2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2],
-                                            [2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2],
+                                            [2, 0, 2, 4, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2],
+                                            [2, 0, 2, 0, 2, 0, 0, 0, 0, 4, 0, 0, 2, 4, 2],
                                             [2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2],
                                             [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
                                             [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
@@ -163,27 +170,41 @@ class Gameclass:
 
         self.field[self.position] = Map.HERO
 
+    def makeMap4(self):
+
+        self.field = np.transpose(np.array([[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 2, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3, 2, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 2, 2, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 3, 0, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 2, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2],
+                                            [2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2],
+                                            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                                            ]))
+
+        self.field[self.position] = Map.HERO
+
     def moveForward(self):
 
-        if self.field[self.fieldInFront()] != Map.WALL:
-
+        if self.field[self.fieldInFront()] == Map.PATH:
             self.field[self.position] = Map.PATH
-
-            if self.direction == Compass.SOUTH:
-                self.position = (self.position[0], min(self.position[1] + 1, 9))
-            if self.direction == Compass.NORTH:
-                self.position = (self.position[0], max(self.position[1] - 1, 0))
-            if self.direction == Compass.EAST:
-                self.position = (min(self.position[0] + 1, 9), self.position[1])
-            if self.direction == Compass.WEST:
-                self.position = (max(self.position[0] - 1, 0), self.position[1])
-
+            self.position = self.fieldInFront()
             self.field[self.position] = Map.HERO
-
-    def lost(self):
-        self.field[self.position] = Map.PATH
-        self.position = self.start_position
-        self.field[self.position] = Map.HERO
+        elif self.field[self.fieldInFront()] == Map.ENEMY or self.field[self.fieldInFront()] == Map.TRAP:
+            print("You lost! Try again")
+            pygame.quit()
+            exit()
+        elif self.field[self.fieldInFront()] == Map.TREASURE:
+            print("You won. Congratulations!")
+            pygame.quit()
+            exit()
 
     def turn(self, direction):
         if direction == "right":
@@ -235,13 +256,16 @@ class Gameclass:
 
                 if event.type == pygame.QUIT:
                     pygame.quit()
+                    exit()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
 
                     if len(statements_to_execute) > 0:
-                        statements_to_execute.pop(0).execute()
+                        statements_to_execute = statements_to_execute.pop(0).execute(statements_to_execute)
                     else:
+                        print("No more commands to execute. Closing...")
                         pygame.quit()
+                        exit()
                     print(statements_to_execute)
 
                 if event.type == pygame.KEYDOWN:

@@ -6,6 +6,7 @@ from Gameclass import Gameclass
 from Statement import *
 from Conditions import *
 
+
 class FirstPassVisitor(GrammarVisitor):
 
     def __init__(self, game_field):
@@ -18,9 +19,9 @@ class FirstPassVisitor(GrammarVisitor):
         self.global_scope = []
 
     def aggregateResult(self, aggregate, nextResult):
-        if nextResult is not None and type(nextResult) != list and self.current_if_scope<0:
+        if nextResult is not None and type(nextResult) != list and self.current_if_scope < 0:
             self.aggr_stats.append(nextResult)
-        elif self.current_if_scope >-1 and type(nextResult) != list and nextResult is not None:
+        elif self.current_if_scope > -1 and type(nextResult) != list and nextResult is not None:
             self.if_scopes[self.current_if_scope].append(nextResult)
 
     def visitStatements(self, ctx: GrammarParser.StatementsContext):
@@ -93,18 +94,17 @@ class FirstPassVisitor(GrammarVisitor):
     def visitCondition(self, ctx: GrammarParser.ConditionContext):
         return ctx.getText()
 
-    def visitFunction_call(self, ctx:GrammarParser.Function_callContext):
+    def visitFunction_call(self, ctx: GrammarParser.Function_callContext):
         name = ctx.getText()
         cond = self.checkFunction(name)
         if cond:
             print("Ok, function was declared")
+            x = self.all_functions[name]
+            return x
         else:
-            print("Error, undeclared function!")
+            raise TypeError("Error, undeclared function: " + name)
 
-
-
-
-    def visitFunction(self, ctx:GrammarParser.FunctionContext):
+    def visitFunction(self, ctx: GrammarParser.FunctionContext):
         print(ctx.NAME())
         self.if_scopes.append([])
         self.current_if_scope += 1
@@ -113,7 +113,7 @@ class FirstPassVisitor(GrammarVisitor):
         print("Body:")
         print(body)
         self.current_if_scope -= 1
-        if self.current_if_scope>-1:
+        if self.current_if_scope > -1:
             self.if_scopes[self.current_if_scope].append(ctx.NAME())
         else:
             self.global_scope.append(ctx.NAME())
@@ -132,5 +132,5 @@ class FirstPassVisitor(GrammarVisitor):
         for k in range(len(self.global_scope)):
             if str(self.global_scope[k]) == str(name):
                 return True
-            else:
-                return False
+
+        return False
