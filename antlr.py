@@ -20,9 +20,10 @@ def main(argv, map):
     print("First pass:")
     fv = FirstPassVisitor(field)
     f = fv.visit(tree)
+    print("Functions from first pass: ")
     if (len(list(f)) > 0):
         print(list(f))
-
+    exit()
     print("Second pass:")
     v = HeroVisitor(field, f)
     st = v.visit(tree)
@@ -35,6 +36,6 @@ def main(argv, map):
 
 
 if __name__ == '__main__':
-    main("code4", 4)
+    main("code", 1)
 
 

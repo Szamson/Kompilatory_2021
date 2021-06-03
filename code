@@ -1,32 +1,22 @@
-fun For4 (forward
-forward
-forward
-forward)
-turn right
-For4
-forward
+fun xyz(
 turn left
-forward
-forward
-turn left
-forward
-forward
-turn right
-For4
-forward
-turn left
-forward
-attack
-turn right
-forward
-turn right
-forward
-forward
-attack
-turn left
-forward
-turn left
-forward
-turn right
-disarm
-forward
+)
+
+
+fun foo(
+    attack
+
+    fun xyz(
+    forward
+    )
+
+    fun pam(
+    turn left
+    xyz
+    )
+
+    pam
+)
+
+foo
+

@@ -27,7 +27,7 @@ class Gameclass:
         pygame.init()
 
         "Size"
-        self.display_width = 800
+        self.display_width = 600
         self.display_height = 600
         self.field_size = 15  # liczba kratek
         self.menu_width = 600 / 20
@@ -268,10 +268,5 @@ class Gameclass:
                         exit()
                     print(statements_to_execute)
 
-                if event.type == pygame.KEYDOWN:
-                    if event.key == ord("a"):
-                        self.turn("left")
-                    elif event.key == ord("d"):
-                        self.turn("right")
 
             pygame.display.update()

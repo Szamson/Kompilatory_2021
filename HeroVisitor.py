@@ -77,11 +77,13 @@ class HeroVisitor(GrammarVisitor):
     def visitCond_help(self, ctx: GrammarParser.Cond_helpContext):
         if ctx.AND():
             left = self.visit(ctx.cond_help())
-            right = self.visit(ctx.condition())
+            tmp = self.visit(ctx.condition())
+            right = Condition(tmp, self.game_field)
             return binCondition(left, right, 'and')
         elif ctx.OR():
             left = self.visit(ctx.cond_help())
-            right = self.visit(ctx.condition())
+            tmp = self.visit(ctx.condition())
+            right = Condition(tmp, self.game_field)
             return binCondition(left, right, 'or')
         elif ctx.NEGATION():
             x = self.visit(ctx.condition())

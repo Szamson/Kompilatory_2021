@@ -27,6 +27,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitStatement(GrammarParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call(GrammarParser.Function_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call(GrammarParser.Function_callContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#if_statement}.
 	 * @param ctx the parse tree
 	 */
