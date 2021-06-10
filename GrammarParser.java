@@ -16,35 +16,37 @@ public class GrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, COMMENT=5, IF=6, WHILE=7, NEGATION=8, 
-		WALL=9, ENEMY=10, TREASURE=11, TRAP=12, AND=13, OR=14, FORWARD=15, TURN=16, 
-		ATTACK=17, DISARM=18, LEFT=19, RIGHT=20, FUN=21, NAME=22, WHITESPACE=23, 
-		NEWLINE=24;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, COMMENT=7, IF=8, WHILE=9, 
+		NEGATION=10, WALL=11, ENEMY=12, TREASURE=13, TRAP=14, AND=15, OR=16, FORWARD=17, 
+		TURN=18, ATTACK=19, DISARM=20, LEFT=21, RIGHT=22, FUN=23, TRUE=24, FALSE=25, 
+		NAME=26, WHITESPACE=27, NEWLINE=28;
 	public static final int
 		RULE_statements = 0, RULE_statement = 1, RULE_function_call = 2, RULE_if_statement = 3, 
-		RULE_while_statement = 4, RULE_cond_help = 5, RULE_condition = 6, RULE_action = 7, 
-		RULE_direction = 8, RULE_function = 9;
+		RULE_while_statement = 4, RULE_bracket_cond = 5, RULE_cond_help = 6, RULE_condition = 7, 
+		RULE_action = 8, RULE_direction = 9, RULE_function = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"statements", "statement", "function_call", "if_statement", "while_statement", 
-			"cond_help", "condition", "action", "direction", "function"
+			"bracket_cond", "cond_help", "condition", "action", "direction", "function"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'<'", "'>'", "'('", "')'", null, "'if'", "'while'", "'NO'", "'WALL'", 
-			"'ENEMY'", "'TREASURE'", "'TRAP'", "'AND'", "'OR'", "'forward'", "'turn'", 
-			"'attack'", "'disarm'", "'left'", "'right'", "'fun'"
+			null, "'<'", "'>'", "'('", "')'", "'['", "']'", null, "'if'", "'while'", 
+			"'NO'", "'WALL'", "'ENEMY'", "'TREASURE'", "'TRAP'", "'AND'", "'OR'", 
+			"'forward'", "'turn'", "'attack'", "'disarm'", "'left'", "'right'", "'fun'", 
+			"'TRUE'", "'FALSE'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "COMMENT", "IF", "WHILE", "NEGATION", "WALL", 
-			"ENEMY", "TREASURE", "TRAP", "AND", "OR", "FORWARD", "TURN", "ATTACK", 
-			"DISARM", "LEFT", "RIGHT", "FUN", "NAME", "WHITESPACE", "NEWLINE"
+			null, null, null, null, null, null, null, "COMMENT", "IF", "WHILE", "NEGATION", 
+			"WALL", "ENEMY", "TREASURE", "TRAP", "AND", "OR", "FORWARD", "TURN", 
+			"ATTACK", "DISARM", "LEFT", "RIGHT", "FUN", "TRUE", "FALSE", "NAME", 
+			"WHITESPACE", "NEWLINE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -117,6 +119,11 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitStatements(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitStatements(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StatementsContext statements() throws RecognitionException {
@@ -126,17 +133,17 @@ public class GrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(21); 
+			setState(23); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(20);
+				setState(22);
 				statement();
 				}
 				}
-				setState(23); 
+				setState(25); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << FORWARD) | (1L << TURN) | (1L << ATTACK) | (1L << DISARM) | (1L << FUN) | (1L << NAME))) != 0) );
@@ -181,26 +188,31 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitStatement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(30);
+			setState(32);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IF:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(25);
+				setState(27);
 				if_statement();
 				}
 				break;
 			case WHILE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(26);
+				setState(28);
 				while_statement();
 				}
 				break;
@@ -210,21 +222,21 @@ public class GrammarParser extends Parser {
 			case DISARM:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(27);
+				setState(29);
 				action();
 				}
 				break;
 			case FUN:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(28);
+				setState(30);
 				function();
 				}
 				break;
 			case NAME:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(29);
+				setState(31);
 				function_call();
 				}
 				break;
@@ -257,6 +269,11 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitFunction_call(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitFunction_call(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Function_callContext function_call() throws RecognitionException {
@@ -265,7 +282,7 @@ public class GrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(32);
+			setState(34);
 			match(NAME);
 			}
 		}
@@ -282,8 +299,8 @@ public class GrammarParser extends Parser {
 
 	public static class If_statementContext extends ParserRuleContext {
 		public TerminalNode IF() { return getToken(GrammarParser.IF, 0); }
-		public Cond_helpContext cond_help() {
-			return getRuleContext(Cond_helpContext.class,0);
+		public Bracket_condContext bracket_cond() {
+			return getRuleContext(Bracket_condContext.class,0);
 		}
 		public StatementsContext statements() {
 			return getRuleContext(StatementsContext.class,0);
@@ -300,6 +317,11 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitIf_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitIf_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final If_statementContext if_statement() throws RecognitionException {
@@ -308,19 +330,19 @@ public class GrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34);
-			match(IF);
-			setState(35);
-			match(T__0);
 			setState(36);
-			cond_help(0);
+			match(IF);
 			setState(37);
-			match(T__1);
+			match(T__0);
 			setState(38);
-			match(T__2);
+			bracket_cond(0);
 			setState(39);
-			statements();
+			match(T__1);
 			setState(40);
+			match(T__2);
+			setState(41);
+			statements();
+			setState(42);
 			match(T__3);
 			}
 		}
@@ -337,8 +359,8 @@ public class GrammarParser extends Parser {
 
 	public static class While_statementContext extends ParserRuleContext {
 		public TerminalNode WHILE() { return getToken(GrammarParser.WHILE, 0); }
-		public Cond_helpContext cond_help() {
-			return getRuleContext(Cond_helpContext.class,0);
+		public Bracket_condContext bracket_cond() {
+			return getRuleContext(Bracket_condContext.class,0);
 		}
 		public StatementsContext statements() {
 			return getRuleContext(StatementsContext.class,0);
@@ -355,6 +377,11 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitWhile_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitWhile_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final While_statementContext while_statement() throws RecognitionException {
@@ -363,19 +390,19 @@ public class GrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
-			match(WHILE);
-			setState(43);
-			match(T__0);
 			setState(44);
-			cond_help(0);
+			match(WHILE);
 			setState(45);
-			match(T__1);
+			match(T__0);
 			setState(46);
-			match(T__2);
+			bracket_cond(0);
 			setState(47);
-			statements();
+			match(T__1);
 			setState(48);
+			match(T__2);
+			setState(49);
+			statements();
+			setState(50);
 			match(T__3);
 			}
 		}
@@ -390,13 +417,151 @@ public class GrammarParser extends Parser {
 		return _localctx;
 	}
 
+	public static class Bracket_condContext extends ParserRuleContext {
+		public List<Bracket_condContext> bracket_cond() {
+			return getRuleContexts(Bracket_condContext.class);
+		}
+		public Bracket_condContext bracket_cond(int i) {
+			return getRuleContext(Bracket_condContext.class,i);
+		}
+		public TerminalNode NEGATION() { return getToken(GrammarParser.NEGATION, 0); }
+		public Cond_helpContext cond_help() {
+			return getRuleContext(Cond_helpContext.class,0);
+		}
+		public TerminalNode OR() { return getToken(GrammarParser.OR, 0); }
+		public TerminalNode AND() { return getToken(GrammarParser.AND, 0); }
+		public Bracket_condContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_bracket_cond; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).enterBracket_cond(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitBracket_cond(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitBracket_cond(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Bracket_condContext bracket_cond() throws RecognitionException {
+		return bracket_cond(0);
+	}
+
+	private Bracket_condContext bracket_cond(int _p) throws RecognitionException {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = getState();
+		Bracket_condContext _localctx = new Bracket_condContext(_ctx, _parentState);
+		Bracket_condContext _prevctx = _localctx;
+		int _startState = 10;
+		enterRecursionRule(_localctx, 10, RULE_bracket_cond, _p);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(63);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			case 1:
+				{
+				setState(53);
+				match(T__4);
+				setState(54);
+				bracket_cond(0);
+				setState(55);
+				match(T__5);
+				}
+				break;
+			case 2:
+				{
+				setState(57);
+				match(NEGATION);
+				setState(58);
+				match(T__4);
+				setState(59);
+				bracket_cond(0);
+				setState(60);
+				match(T__5);
+				}
+				break;
+			case 3:
+				{
+				setState(62);
+				cond_help(0);
+				}
+				break;
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(73);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) triggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					setState(71);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+					case 1:
+						{
+						_localctx = new Bracket_condContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_bracket_cond);
+						setState(65);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(66);
+						match(OR);
+						setState(67);
+						bracket_cond(4);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new Bracket_condContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_bracket_cond);
+						setState(68);
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						setState(69);
+						match(AND);
+						setState(70);
+						bracket_cond(3);
+						}
+						break;
+					}
+					} 
+				}
+				setState(75);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			unrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
 	public static class Cond_helpContext extends ParserRuleContext {
 		public TerminalNode NEGATION() { return getToken(GrammarParser.NEGATION, 0); }
 		public ConditionContext condition() {
 			return getRuleContext(ConditionContext.class,0);
 		}
-		public Cond_helpContext cond_help() {
-			return getRuleContext(Cond_helpContext.class,0);
+		public List<Cond_helpContext> cond_help() {
+			return getRuleContexts(Cond_helpContext.class);
+		}
+		public Cond_helpContext cond_help(int i) {
+			return getRuleContext(Cond_helpContext.class,i);
 		}
 		public TerminalNode OR() { return getToken(GrammarParser.OR, 0); }
 		public TerminalNode AND() { return getToken(GrammarParser.AND, 0); }
@@ -412,6 +577,11 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitCond_help(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitCond_help(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Cond_helpContext cond_help() throws RecognitionException {
@@ -423,20 +593,20 @@ public class GrammarParser extends Parser {
 		int _parentState = getState();
 		Cond_helpContext _localctx = new Cond_helpContext(_ctx, _parentState);
 		Cond_helpContext _prevctx = _localctx;
-		int _startState = 10;
-		enterRecursionRule(_localctx, 10, RULE_cond_help, _p);
+		int _startState = 12;
+		enterRecursionRule(_localctx, 12, RULE_cond_help, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(54);
+			setState(80);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NEGATION:
 				{
-				setState(51);
+				setState(77);
 				match(NEGATION);
-				setState(52);
+				setState(78);
 				condition();
 				}
 				break;
@@ -444,8 +614,10 @@ public class GrammarParser extends Parser {
 			case ENEMY:
 			case TREASURE:
 			case TRAP:
+			case TRUE:
+			case FALSE:
 				{
-				setState(53);
+				setState(79);
 				condition();
 				}
 				break;
@@ -453,47 +625,47 @@ public class GrammarParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(64);
+			setState(90);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(62);
+					setState(88);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 					case 1:
 						{
 						_localctx = new Cond_helpContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_cond_help);
-						setState(56);
+						setState(82);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(57);
+						setState(83);
 						match(OR);
-						setState(58);
-						condition();
+						setState(84);
+						cond_help(3);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new Cond_helpContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_cond_help);
-						setState(59);
+						setState(85);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-						setState(60);
+						setState(86);
 						match(AND);
-						setState(61);
-						condition();
+						setState(87);
+						cond_help(2);
 						}
 						break;
 					}
 					} 
 				}
-				setState(66);
+				setState(92);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			}
 			}
 		}
@@ -513,6 +685,8 @@ public class GrammarParser extends Parser {
 		public TerminalNode ENEMY() { return getToken(GrammarParser.ENEMY, 0); }
 		public TerminalNode TRAP() { return getToken(GrammarParser.TRAP, 0); }
 		public TerminalNode TREASURE() { return getToken(GrammarParser.TREASURE, 0); }
+		public TerminalNode TRUE() { return getToken(GrammarParser.TRUE, 0); }
+		public TerminalNode FALSE() { return getToken(GrammarParser.FALSE, 0); }
 		public ConditionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -525,18 +699,23 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitCondition(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitCondition(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ConditionContext condition() throws RecognitionException {
 		ConditionContext _localctx = new ConditionContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_condition);
+		enterRule(_localctx, 14, RULE_condition);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(67);
+			setState(93);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << WALL) | (1L << ENEMY) | (1L << TREASURE) | (1L << TRAP))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << WALL) | (1L << ENEMY) | (1L << TREASURE) | (1L << TRAP) | (1L << TRUE) | (1L << FALSE))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -577,42 +756,47 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitAction(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitAction(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ActionContext action() throws RecognitionException {
 		ActionContext _localctx = new ActionContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_action);
+		enterRule(_localctx, 16, RULE_action);
 		try {
-			setState(74);
+			setState(100);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case FORWARD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(69);
+				setState(95);
 				match(FORWARD);
 				}
 				break;
 			case TURN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(70);
+				setState(96);
 				match(TURN);
-				setState(71);
+				setState(97);
 				direction();
 				}
 				break;
 			case ATTACK:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(72);
+				setState(98);
 				match(ATTACK);
 				}
 				break;
 			case DISARM:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(73);
+				setState(99);
 				match(DISARM);
 				}
 				break;
@@ -646,16 +830,21 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitDirection(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitDirection(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DirectionContext direction() throws RecognitionException {
 		DirectionContext _localctx = new DirectionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_direction);
+		enterRule(_localctx, 18, RULE_direction);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(76);
+			setState(102);
 			_la = _input.LA(1);
 			if ( !(_la==LEFT || _la==RIGHT) ) {
 			_errHandler.recoverInline(this);
@@ -696,23 +885,28 @@ public class GrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof GrammarListener ) ((GrammarListener)listener).exitFunction(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof GrammarVisitor ) return ((GrammarVisitor<? extends T>)visitor).visitFunction(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FunctionContext function() throws RecognitionException {
 		FunctionContext _localctx = new FunctionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_function);
+		enterRule(_localctx, 20, RULE_function);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(78);
+			setState(104);
 			match(FUN);
-			setState(79);
+			setState(105);
 			match(NAME);
-			setState(80);
+			setState(106);
 			match(T__2);
-			setState(81);
+			setState(107);
 			statements();
-			setState(82);
+			setState(108);
 			match(T__3);
 			}
 		}
@@ -730,43 +924,60 @@ public class GrammarParser extends Parser {
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
 		case 5:
+			return bracket_cond_sempred((Bracket_condContext)_localctx, predIndex);
+		case 6:
 			return cond_help_sempred((Cond_helpContext)_localctx, predIndex);
+		}
+		return true;
+	}
+	private boolean bracket_cond_sempred(Bracket_condContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 0:
+			return precpred(_ctx, 3);
+		case 1:
+			return precpred(_ctx, 2);
 		}
 		return true;
 	}
 	private boolean cond_help_sempred(Cond_helpContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0:
+		case 2:
 			return precpred(_ctx, 2);
-		case 1:
+		case 3:
 			return precpred(_ctx, 1);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32W\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
-		"\2\6\2\30\n\2\r\2\16\2\31\3\3\3\3\3\3\3\3\3\3\5\3!\n\3\3\4\3\4\3\5\3\5"+
-		"\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3"+
-		"\7\5\79\n\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7A\n\7\f\7\16\7D\13\7\3\b\3\b\3"+
-		"\t\3\t\3\t\3\t\3\t\5\tM\n\t\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
-		"\2\3\f\f\2\4\6\b\n\f\16\20\22\24\2\4\3\2\13\16\3\2\25\26\2W\2\27\3\2\2"+
-		"\2\4 \3\2\2\2\6\"\3\2\2\2\b$\3\2\2\2\n,\3\2\2\2\f8\3\2\2\2\16E\3\2\2\2"+
-		"\20L\3\2\2\2\22N\3\2\2\2\24P\3\2\2\2\26\30\5\4\3\2\27\26\3\2\2\2\30\31"+
-		"\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\3\3\2\2\2\33!\5\b\5\2\34!\5\n"+
-		"\6\2\35!\5\20\t\2\36!\5\24\13\2\37!\5\6\4\2 \33\3\2\2\2 \34\3\2\2\2 \35"+
-		"\3\2\2\2 \36\3\2\2\2 \37\3\2\2\2!\5\3\2\2\2\"#\7\30\2\2#\7\3\2\2\2$%\7"+
-		"\b\2\2%&\7\3\2\2&\'\5\f\7\2\'(\7\4\2\2()\7\5\2\2)*\5\2\2\2*+\7\6\2\2+"+
-		"\t\3\2\2\2,-\7\t\2\2-.\7\3\2\2./\5\f\7\2/\60\7\4\2\2\60\61\7\5\2\2\61"+
-		"\62\5\2\2\2\62\63\7\6\2\2\63\13\3\2\2\2\64\65\b\7\1\2\65\66\7\n\2\2\66"+
-		"9\5\16\b\2\679\5\16\b\28\64\3\2\2\28\67\3\2\2\29B\3\2\2\2:;\f\4\2\2;<"+
-		"\7\20\2\2<A\5\16\b\2=>\f\3\2\2>?\7\17\2\2?A\5\16\b\2@:\3\2\2\2@=\3\2\2"+
-		"\2AD\3\2\2\2B@\3\2\2\2BC\3\2\2\2C\r\3\2\2\2DB\3\2\2\2EF\t\2\2\2F\17\3"+
-		"\2\2\2GM\7\21\2\2HI\7\22\2\2IM\5\22\n\2JM\7\23\2\2KM\7\24\2\2LG\3\2\2"+
-		"\2LH\3\2\2\2LJ\3\2\2\2LK\3\2\2\2M\21\3\2\2\2NO\t\3\2\2O\23\3\2\2\2PQ\7"+
-		"\27\2\2QR\7\30\2\2RS\7\5\2\2ST\5\2\2\2TU\7\6\2\2U\25\3\2\2\2\b\31 8@B"+
-		"L";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36q\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\3\2\6\2\32\n\2\r\2\16\2\33\3\3\3\3\3\3\3\3\3\3\5\3#\n\3\3\4\3\4"+
+		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3"+
+		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7B\n\7\3\7\3\7\3\7\3\7\3\7\3"+
+		"\7\7\7J\n\7\f\7\16\7M\13\7\3\b\3\b\3\b\3\b\5\bS\n\b\3\b\3\b\3\b\3\b\3"+
+		"\b\3\b\7\b[\n\b\f\b\16\b^\13\b\3\t\3\t\3\n\3\n\3\n\3\n\3\n\5\ng\n\n\3"+
+		"\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\2\4\f\16\r\2\4\6\b\n\f\16\20\22\24"+
+		"\26\2\4\4\2\r\20\32\33\3\2\27\30\2t\2\31\3\2\2\2\4\"\3\2\2\2\6$\3\2\2"+
+		"\2\b&\3\2\2\2\n.\3\2\2\2\fA\3\2\2\2\16R\3\2\2\2\20_\3\2\2\2\22f\3\2\2"+
+		"\2\24h\3\2\2\2\26j\3\2\2\2\30\32\5\4\3\2\31\30\3\2\2\2\32\33\3\2\2\2\33"+
+		"\31\3\2\2\2\33\34\3\2\2\2\34\3\3\2\2\2\35#\5\b\5\2\36#\5\n\6\2\37#\5\22"+
+		"\n\2 #\5\26\f\2!#\5\6\4\2\"\35\3\2\2\2\"\36\3\2\2\2\"\37\3\2\2\2\" \3"+
+		"\2\2\2\"!\3\2\2\2#\5\3\2\2\2$%\7\34\2\2%\7\3\2\2\2&\'\7\n\2\2\'(\7\3\2"+
+		"\2()\5\f\7\2)*\7\4\2\2*+\7\5\2\2+,\5\2\2\2,-\7\6\2\2-\t\3\2\2\2./\7\13"+
+		"\2\2/\60\7\3\2\2\60\61\5\f\7\2\61\62\7\4\2\2\62\63\7\5\2\2\63\64\5\2\2"+
+		"\2\64\65\7\6\2\2\65\13\3\2\2\2\66\67\b\7\1\2\678\7\7\2\289\5\f\7\29:\7"+
+		"\b\2\2:B\3\2\2\2;<\7\f\2\2<=\7\7\2\2=>\5\f\7\2>?\7\b\2\2?B\3\2\2\2@B\5"+
+		"\16\b\2A\66\3\2\2\2A;\3\2\2\2A@\3\2\2\2BK\3\2\2\2CD\f\5\2\2DE\7\22\2\2"+
+		"EJ\5\f\7\6FG\f\4\2\2GH\7\21\2\2HJ\5\f\7\5IC\3\2\2\2IF\3\2\2\2JM\3\2\2"+
+		"\2KI\3\2\2\2KL\3\2\2\2L\r\3\2\2\2MK\3\2\2\2NO\b\b\1\2OP\7\f\2\2PS\5\20"+
+		"\t\2QS\5\20\t\2RN\3\2\2\2RQ\3\2\2\2S\\\3\2\2\2TU\f\4\2\2UV\7\22\2\2V["+
+		"\5\16\b\5WX\f\3\2\2XY\7\21\2\2Y[\5\16\b\4ZT\3\2\2\2ZW\3\2\2\2[^\3\2\2"+
+		"\2\\Z\3\2\2\2\\]\3\2\2\2]\17\3\2\2\2^\\\3\2\2\2_`\t\2\2\2`\21\3\2\2\2"+
+		"ag\7\23\2\2bc\7\24\2\2cg\5\24\13\2dg\7\25\2\2eg\7\26\2\2fa\3\2\2\2fb\3"+
+		"\2\2\2fd\3\2\2\2fe\3\2\2\2g\23\3\2\2\2hi\t\3\2\2i\25\3\2\2\2jk\7\31\2"+
+		"\2kl\7\34\2\2lm\7\5\2\2mn\5\2\2\2no\7\6\2\2o\27\3\2\2\2\13\33\"AIKRZ\\"+
+		"f";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

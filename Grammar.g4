@@ -10,19 +10,28 @@ statement : if_statement
           ;
 
 function_call: NAME;
-if_statement : IF '<' cond_help '>' '(' statements ')' ;
-while_statement : WHILE '<' cond_help '>' '(' statements ')' ;
+if_statement : IF '<' bracket_cond '>' '(' statements ')' ;
+while_statement : WHILE '<' bracket_cond '>' '(' statements ')' ;
+
+bracket_cond: '[' bracket_cond ']'
+            | NEGATION '[' bracket_cond ']'
+            | bracket_cond OR bracket_cond
+            | bracket_cond AND bracket_cond
+            | cond_help
+            ;
 
 cond_help : NEGATION condition
 		  | condition
-		  | cond_help OR condition
-		  | cond_help AND condition
+		  | cond_help OR cond_help
+		  | cond_help AND cond_help
 		  ;
 
 condition : WALL
 		  | ENEMY
 		  | TRAP
 		  |TREASURE
+		  | TRUE
+		  | FALSE
 		  ;
 
 action : FORWARD
@@ -54,6 +63,8 @@ DISARM:     'disarm';
 LEFT:       'left';
 RIGHT:      'right';
 FUN:        'fun';
+TRUE:       'TRUE';
+FALSE:      'FALSE';
 
 NAME:       [a-zA-Z]+[a-zA-Z0-9]*    ;
 WHITESPACE          : (' ' | '\t') -> skip ;

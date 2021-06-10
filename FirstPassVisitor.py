@@ -18,6 +18,7 @@ class FirstPassVisitor(GrammarVisitor):
         self.all_functions = {}
         self.global_scope = []
         self.current_scope_name = "global"
+        self.if_scope_counter_dict = {}
 
     def aggregateResult(self, aggregate, nextResult):
         if nextResult is not None and type(nextResult) != list and self.current_if_scope < 0:
@@ -44,21 +45,50 @@ class FirstPassVisitor(GrammarVisitor):
         elif ctx.function_call():
             return self.visit(ctx.function_call())
 
+
     def visitIf_statement(self, ctx: GrammarParser.If_statementContext):
+        if_number = 0
+        if self.current_scope_name in self.if_scope_counter_dict:
+            self.if_scope_counter_dict[self.current_scope_name] += 1
+            if_number = self.if_scope_counter_dict[self.current_scope_name]
+        else:
+            self.if_scope_counter_dict[self.current_scope_name] = 1
+            if_number = 1
+
+        self.current_scope_name += ":if" + str(if_number)
+
         self.if_scopes.append([])
         self.current_if_scope += 1
-        cond = self.visit(ctx.cond_help())
+        cond = self.visit(ctx.bracket_cond())
         self.visit(ctx.statements())
         body = self.if_scopes.pop(self.current_if_scope)
+
+        tmp_scope = self.current_scope_name.split(":")
+        self.current_scope_name = ':'.join([str(elem) for elem in tmp_scope[:-1]])
+
         self.current_if_scope -= 1
         return ifStatement(body, cond)
 
     def visitWhile_statement(self, ctx: GrammarParser.While_statementContext):
+        if_number = 0
+        if self.current_scope_name in self.if_scope_counter_dict:
+            self.if_scope_counter_dict[self.current_scope_name] += 1
+            if_number = self.if_scope_counter_dict[self.current_scope_name]
+        else:
+            self.if_scope_counter_dict[self.current_scope_name] = 1
+            if_number = 1
+
+        self.current_scope_name += ":while" + str(if_number)
+
         self.if_scopes.append([])
         self.current_if_scope += 1
-        cond = self.visit(ctx.cond_help())
+        cond = self.visit(ctx.bracket_cond())
         self.visit(ctx.statements())
         body = self.if_scopes.pop(self.current_if_scope)
+
+        tmp_scope = self.current_scope_name.split(":")
+        self.current_scope_name = ':'.join([str(elem) for elem in tmp_scope[:-1]])
+
         self.current_if_scope -= 1
         return whileStatement(body, cond)
 
@@ -78,18 +108,36 @@ class FirstPassVisitor(GrammarVisitor):
         else:
             return None
 
-    def visitCond_help(self, ctx: GrammarParser.Cond_helpContext):
+    def visitBracket_cond(self, ctx:GrammarParser.Bracket_condContext):
         if ctx.AND():
-            left = self.visit(ctx.cond_help())
-            right = self.visit(ctx.condition())
+            left = self.visit(ctx.getChild(0))
+            right = self.visit(ctx.getChild(2))
             return binCondition(left, right, 'and')
         elif ctx.OR():
-            left = self.visit(ctx.cond_help())
-            right = self.visit(ctx.condition())
+            left = self.visit(ctx.getChild(0))
+            right = self.visit(ctx.getChild(2))
+            return binCondition(left, right, 'or')
+        elif ctx.cond_help():
+            return self.visit(ctx.cond_help())
+        elif ctx.NEGATION():
+            x = self.visit(ctx.getChild(2))
+            return negCondition(x, self.game_field)
+        else:
+            x = self.visit(ctx.getChild(1))
+            return bracketCondition(x)
+
+    def visitCond_help(self, ctx: GrammarParser.Cond_helpContext):
+        if ctx.AND():
+            left = self.visit(ctx.getChild(0))
+            right = self.visit(ctx.getChild(2))
+            return binCondition(left, right, 'and')
+        elif ctx.OR():
+            left = self.visit(ctx.getChild(0))
+            right = self.visit(ctx.getChild(2))
             return binCondition(left, right, 'or')
         elif ctx.NEGATION():
             x = self.visit(ctx.condition())
-            return negCondition(x, self.game_field)
+            return negCondition(Condition(x, self.game_field), self.game_field)
         else:
             x = self.visit(ctx.condition())
             return Condition(x, self.game_field)
@@ -113,10 +161,8 @@ class FirstPassVisitor(GrammarVisitor):
             exit()
 
     def visitFunction(self, ctx: GrammarParser.FunctionContext):
-        print("Now", self.current_scope_name)
-        print(ctx.NAME())
         self.current_scope_name += ":" + str(ctx.NAME())
-        print("Into", self.current_scope_name)
+
 
         self.if_scopes.append([])
         self.current_if_scope += 1
@@ -131,10 +177,7 @@ class FirstPassVisitor(GrammarVisitor):
             if issubclass(type(tmp_body[i]), Statement):
                 body.append(tmp_body[i])
 
-        print("Body:")
-        print(body)
         self.current_scope_name = ':'.join([str(elem) for elem in tmp_scope[:-1]])
-        print("Left to", self.current_scope_name)
         self.current_if_scope -= 1
         '''
         if self.current_if_scope > -1:
@@ -168,12 +211,9 @@ class FirstPassVisitor(GrammarVisitor):
     '''
 
     def checkFunction(self, name):
-        print("Checking...")
-        print(self.all_functions.keys())
         tmp_scope = self.current_scope_name.split(":")
         x = ':'.join([str(elem) for elem in tmp_scope])
         while (len(x) > 0):
-            print(x + ":" + name)
             if x + ":" + name in self.all_functions.keys():
                 return x + ":" + name
             tmp_scope = x.split(":")

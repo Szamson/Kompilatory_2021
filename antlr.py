@@ -19,11 +19,15 @@ def main(argv, map):
 
     print("First pass:")
     fv = FirstPassVisitor(field)
-    f = fv.visit(tree)
+    try:
+        f = fv.visit(tree)
+    except:
+        print("Syntax error")
+        exit()
     print("Functions from first pass: ")
     if (len(list(f)) > 0):
         print(list(f))
-    exit()
+
     print("Second pass:")
     v = HeroVisitor(field, f)
     st = v.visit(tree)

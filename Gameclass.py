@@ -213,6 +213,12 @@ class Gameclass:
             self.direction = (self.direction - 1) % 4
 
     def checkCondition(self, condition):
+
+        if condition == "TRUE":
+            return True
+        if condition == "FALSE":
+            return False
+
         field_in_front = self.fieldInFront()
 
         if condition == Map(self.field[field_in_front[0], field_in_front[1]]).name:

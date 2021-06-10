@@ -7,15 +7,23 @@ class Condition:
     def getValue(self):
         return self.game.checkCondition(self.term)
 
+class bracketCondition:
+
+    def __init__(self, x):
+        self.cond = x
+
+    def getValue(self):
+        return self.cond.getValue()
+
 
 class negCondition(Condition):
 
     def __init__(self, x, game):
-        self.term = x
+        self.cond = x
         self.game = game
 
     def getValue(self):
-        return not self.game.checkCondition(self.term)
+        return not self.cond.getValue()
 
 
 class binCondition(Condition):

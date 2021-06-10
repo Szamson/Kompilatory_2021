@@ -34,6 +34,11 @@ class GrammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by GrammarParser#bracket_cond.
+    def visitBracket_cond(self, ctx:GrammarParser.Bracket_condContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by GrammarParser#cond_help.
     def visitCond_help(self, ctx:GrammarParser.Cond_helpContext):
         return self.visitChildren(ctx)

@@ -22,6 +22,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(GrammarParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#function_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_call(GrammarParser.Function_callContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GrammarParser#if_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -33,6 +39,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitWhile_statement(GrammarParser.While_statementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#bracket_cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBracket_cond(GrammarParser.Bracket_condContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GrammarParser#cond_help}.
 	 * @param ctx the parse tree
