@@ -8,8 +8,8 @@ from Gameclass import Gameclass
 from Statement import executeCommands
 
 
-def main(argv, map, print_mode):
-    input = FileStream(argv)
+def main(file_name, map, print_mode):
+    input = FileStream(file_name)
     lexer = GrammarLexer(input)
     stream = CommonTokenStream(lexer)
     parser = GrammarParser(stream)

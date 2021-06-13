@@ -51,9 +51,7 @@ class FirstPassVisitor(GrammarVisitor):
 
     def visitPrint_statement(self, ctx:GrammarParser.Print_statementContext):
         text = ctx.SOME_STRING()
-        print(text)
         text = str(text).strip()
-        print(text)
         return printStatement(text[1:-1])
 
     def visitIf_statement(self, ctx: GrammarParser.If_statementContext):
@@ -223,7 +221,6 @@ class FirstPassVisitor(GrammarVisitor):
         function_name = self.current_scope_name + ":" + str(ctx.NAME())
         try:
             if function_name not in self.all_functions:
-                print("add fun")
                 self.all_functions[function_name] = tmp
             else:
                 raise TypeError("Error, function already defined in this scope!")

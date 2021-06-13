@@ -47,7 +47,6 @@ class HeroVisitor(GrammarVisitor):
     def visitPrint_statement(self, ctx: GrammarParser.Print_statementContext):
         text = ctx.SOME_STRING()
         text = str(text)
-        print(text)
         return printStatement(text[1:-1])
 
 
