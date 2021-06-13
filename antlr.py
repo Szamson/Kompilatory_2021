@@ -40,6 +40,6 @@ def main(file_name, map, print_mode):
 
 
 if __name__ == '__main__':
-    main("code1", 1, True)
+    main("code", 1, True)
 
 
