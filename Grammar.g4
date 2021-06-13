@@ -7,11 +7,13 @@ statement : if_statement
           | action
 		  | function
 		  | function_call
+		  | for_statement
           ;
 
 function_call: NAME;
 if_statement : IF '<' bracket_cond '>' '(' statements ')' ;
 while_statement : WHILE '<' bracket_cond '>' '(' statements ')' ;
+for_statement: FOR '<' NUMBER '>' '(' statements ')' ;
 
 bracket_cond: '[' bracket_cond ']'
             | NEGATION '[' bracket_cond ']'
@@ -65,7 +67,9 @@ RIGHT:      'right';
 FUN:        'fun';
 TRUE:       'TRUE';
 FALSE:      'FALSE';
+FOR:         'FOR';
 
 NAME:       [a-zA-Z]+[a-zA-Z0-9]*    ;
+NUMBER:     [1-9][0-9]* ;
 WHITESPACE          : (' ' | '\t') -> skip ;
 NEWLINE             : ('\r'? '\n' | '\r')+ -> skip ;

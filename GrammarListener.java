@@ -57,6 +57,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitWhile_statement(GrammarParser.While_statementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#for_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterFor_statement(GrammarParser.For_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#for_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitFor_statement(GrammarParser.For_statementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#bracket_cond}.
 	 * @param ctx the parse tree
 	 */

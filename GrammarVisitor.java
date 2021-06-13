@@ -40,6 +40,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhile_statement(GrammarParser.While_statementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#for_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor_statement(GrammarParser.For_statementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GrammarParser#bracket_cond}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

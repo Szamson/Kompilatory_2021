@@ -39,6 +39,8 @@ class HeroVisitor(GrammarVisitor):
             return self.visit(ctx.action())
         elif ctx.function_call():
             return self.visit(ctx.function_call())
+        elif ctx.for_statement():
+            return self.visit(ctx.for_statement())
 
 
 
@@ -64,6 +66,31 @@ class HeroVisitor(GrammarVisitor):
 
         self.current_if_scope -= 1
         return ifStatement(body, cond)
+
+    def visitFor_statement(self, ctx:GrammarParser.For_statementContext):
+        if_number = 0
+        if self.current_scope_name in self.if_scope_counter_dict:
+            self.if_scope_counter_dict[self.current_scope_name] += 1
+            if_number = self.if_scope_counter_dict[self.current_scope_name]
+        else:
+            self.if_scope_counter_dict[self.current_scope_name] = 1
+            if_number = 1
+
+        self.current_scope_name += ":for" + str(if_number)
+
+        self.if_scopes.append([])
+        self.current_if_scope += 1
+
+        numb = ctx.NUMBER()
+        print(numb)
+        self.visit(ctx.statements())
+        body = self.if_scopes.pop(self.current_if_scope)
+
+        tmp_scope = self.current_scope_name.split(":")
+        self.current_scope_name = ':'.join([str(elem) for elem in tmp_scope[:-1]])
+
+        self.current_if_scope -= 1
+        return forStatement(body, int(str(numb)))
 
     def visitWhile_statement(self, ctx: GrammarParser.While_statementContext):
         if_number = 0

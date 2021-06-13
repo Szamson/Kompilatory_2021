@@ -92,6 +92,22 @@ class disarmStatement(Statement):
         return statement_list
 
 
+class forStatement(Statement):
+    def __init__(self, _body, _num):
+        self.body = _body
+        self.num = _num
+
+    def execute(self, statement_list):
+        if self.num > 0:
+            self.num -= 1
+            tmp = statement_list
+            tmp.insert(0, self)
+            for a in self.body[::-1]:
+                tmp.insert(0, a)
+            return tmp
+        return statement_list
+
+
 def executeCommands(body):
     if body is not None:
         for a in body:

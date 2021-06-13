@@ -53,6 +53,15 @@ class GrammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by GrammarParser#for_statement.
+    def enterFor_statement(self, ctx:GrammarParser.For_statementContext):
+        pass
+
+    # Exit a parse tree produced by GrammarParser#for_statement.
+    def exitFor_statement(self, ctx:GrammarParser.For_statementContext):
+        pass
+
+
     # Enter a parse tree produced by GrammarParser#bracket_cond.
     def enterBracket_cond(self, ctx:GrammarParser.Bracket_condContext):
         pass
