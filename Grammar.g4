@@ -8,12 +8,14 @@ statement : if_statement
 		  | function
 		  | function_call
 		  | for_statement
+		  | print_statement
           ;
 
 function_call: NAME;
 if_statement : IF '<' bracket_cond '>' '(' statements ')' ;
 while_statement : WHILE '<' bracket_cond '>' '(' statements ')' ;
 for_statement: FOR '<' NUMBER '>' '(' statements ')' ;
+print_statement: PRINT '<' SOME_STRING '>' ;
 
 bracket_cond: '[' bracket_cond ']'
             | NEGATION '[' bracket_cond ']'
@@ -68,8 +70,10 @@ FUN:        'fun';
 TRUE:       'TRUE';
 FALSE:      'FALSE';
 FOR:         'FOR';
+PRINT:      'PRINT';
 
 NAME:       [a-zA-Z]+[a-zA-Z0-9]*    ;
 NUMBER:     [1-9][0-9]* ;
+SOME_STRING: '"' ( ~[\\"] | '\\' . )* '"' ;
 WHITESPACE          : (' ' | '\t') -> skip ;
 NEWLINE             : ('\r'? '\n' | '\r')+ -> skip ;

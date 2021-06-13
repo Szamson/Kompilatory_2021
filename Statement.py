@@ -107,6 +107,14 @@ class forStatement(Statement):
             return tmp
         return statement_list
 
+class printStatement(Statement):
+    def __init__(self, text):
+        self.text = text.strip()
+
+    def execute(self, statement_list):
+        print(self.text.strip("\n"))
+        return statement_list
+
 
 def executeCommands(body):
     if body is not None:

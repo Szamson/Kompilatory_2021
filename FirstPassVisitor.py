@@ -46,7 +46,15 @@ class FirstPassVisitor(GrammarVisitor):
             return self.visit(ctx.function_call())
         elif ctx.for_statement():
             return self.visit(ctx.for_statement())
+        elif ctx.print_statement():
+            return self.visit(ctx.print_statement())
 
+    def visitPrint_statement(self, ctx:GrammarParser.Print_statementContext):
+        text = ctx.SOME_STRING()
+        print(text)
+        text = str(text).strip()
+        print(text)
+        return printStatement(text[1:-1])
 
     def visitIf_statement(self, ctx: GrammarParser.If_statementContext):
         if_number = 0
@@ -86,7 +94,6 @@ class FirstPassVisitor(GrammarVisitor):
         self.current_if_scope += 1
 
         numb = ctx.NUMBER()
-        print(numb)
         self.visit(ctx.statements())
         body = self.if_scopes.pop(self.current_if_scope)
 

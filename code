@@ -1,1 +1,40 @@
-FOR<5>(attack)
+fun xyz(
+turn left
+)
+
+
+fun foo(
+    attack
+
+    fun xyz(
+    forward
+    )
+
+
+
+
+    if<NO ENEMY> (forward
+
+        fun pam(
+        turn left
+        xyz
+        )
+
+       if<NO WALL> (
+        fun abc(attack)
+        pam
+
+       )
+    )
+
+    if<ENEMY> (
+    fun def(attack)
+
+    if<WALL> (
+        fun abc(attack)
+
+       )
+    )
+)
+
+foo

@@ -22,9 +22,10 @@ class Map(IntEnum):
 
 class Gameclass:
 
-    def __init__(self, map):
+    def __init__(self, map, print_mode):
 
         pygame.init()
+        self.print_mode = print_mode
 
         "Size"
         self.display_width = 600
@@ -272,7 +273,8 @@ class Gameclass:
                         print("No more commands to execute. Closing...")
                         pygame.quit()
                         exit()
-                    print(statements_to_execute)
+                    if self.print_mode:
+                        print(statements_to_execute)
 
 
             pygame.display.update()

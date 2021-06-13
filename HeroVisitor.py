@@ -41,6 +41,14 @@ class HeroVisitor(GrammarVisitor):
             return self.visit(ctx.function_call())
         elif ctx.for_statement():
             return self.visit(ctx.for_statement())
+        elif ctx.print_statement():
+            return self.visit(ctx.print_statement())
+
+    def visitPrint_statement(self, ctx: GrammarParser.Print_statementContext):
+        text = ctx.SOME_STRING()
+        text = str(text)
+        print(text)
+        return printStatement(text[1:-1])
 
 
 
@@ -82,7 +90,6 @@ class HeroVisitor(GrammarVisitor):
         self.current_if_scope += 1
 
         numb = ctx.NUMBER()
-        print(numb)
         self.visit(ctx.statements())
         body = self.if_scopes.pop(self.current_if_scope)
 
