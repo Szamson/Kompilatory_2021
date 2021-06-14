@@ -1,9 +1,5 @@
-import sys
-from antlr4 import *
-from GrammarParser import GrammarParser
-from GrammarListener import GrammarListener
-import Gameclass
-
+from HeroLang.GrammarParser import GrammarParser
+from HeroLang.GrammarListener import GrammarListener
 
 
 class HeroListener(GrammarListener):

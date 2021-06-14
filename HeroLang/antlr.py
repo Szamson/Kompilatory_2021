@@ -1,11 +1,9 @@
-import sys
 from antlr4 import *
-from GrammarLexer import GrammarLexer
-from GrammarParser import GrammarParser
-from HeroVisitor import HeroVisitor
-from FirstPassVisitor import FirstPassVisitor
-from Gameclass import Gameclass
-from Statement import executeCommands
+from HeroLang.GrammarLexer import GrammarLexer
+from HeroLang.GrammarParser import GrammarParser
+from HeroLang.HeroVisitor import HeroVisitor
+from HeroLang.FirstPassVisitor import FirstPassVisitor
+from HeroLang.Gameclass import Gameclass
 
 
 def main(file_name, map, print_mode):

@@ -1,10 +1,7 @@
-import sys
-from antlr4 import *
-from GrammarParser import GrammarParser
-from GrammarVisitor import GrammarVisitor
-from Gameclass import Gameclass
-from Statement import *
-from Conditions import *
+from HeroLang.GrammarParser import GrammarParser
+from HeroLang.GrammarVisitor import GrammarVisitor
+from HeroLang.Statement import *
+from HeroLang.Conditions import *
 
 
 class HeroVisitor(GrammarVisitor):
