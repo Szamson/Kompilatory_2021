@@ -34,5 +34,7 @@ Głównym założeniem było stworzenie języka, który w prosty i przyjemny spo
 ## Uruchomienie
 Do poprawnego działania wymagane są:
 * ```antlr```
-* ```pygame```
-* ```nympy```
+### ```pygame```
+* ``` python3 -m pip install -U pygame --user ```
+### ```numpy```
+* ```python3 -m pip install -U numpy --user```
