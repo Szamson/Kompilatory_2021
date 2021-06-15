@@ -22,10 +22,11 @@ class Map(IntEnum):
 
 class Gameclass:
 
-    def __init__(self, map, print_mode):
+    def __init__(self, map_file, print_mode):
 
         pygame.init()
         self.print_mode = print_mode
+        self.map_file = map_file
 
         "Size"
         self.display_width = 600
@@ -45,17 +46,9 @@ class Gameclass:
         self.direction = Compass.NORTH
         self.field = np.zeros((10, 10))
         self.position = (1, 13)
+        self.makeMap()
         self.instructions = []
         self.instructions_counter = 0
-
-        if map == 1:
-            self.makeMap1()
-        elif map == 2:
-            self.makeMap2()
-        elif map == 3:
-            self.makeMap3()
-        else:
-            self.makeMap4()
 
     def drawGrid(self):
         """"
@@ -92,21 +85,18 @@ class Gameclass:
                 elif self.field[x, y] == Map.PATH:
                     self.drawRect("white", x, y)
 
-    def readFromFile(self, name):
-        with open(name, "r") as fp:
-            for i in fp.readlines():
-                self.instructions.append(i)
-
     def makeMap(self):
+        self.field = np.transpose(np.array(self.read_from_file()))
         self.field[self.position] = Map.HERO
-        self.field[1:5, 4] = Map.WALL
-        self.field[5, 5] = Map.TRAP
-        self.field[6, 8] = Map.TREASURE
-        self.field[8, 8] = Map.ENEMY
-        self.field[0:, 0] = Map.WALL
-        self.field[0:, 9] = Map.WALL
-        self.field[0, 0:] = Map.WALL
-        self.field[9, 0:] = Map.WALL
+
+    def read_from_file(self):
+        mylist = []
+        with open(self.map_file, "r") as fp:
+            for i in fp.readlines():
+                tmp = i.split(',')
+                tmp = [int(i) for i in tmp]
+                mylist.append(tmp)
+        return mylist
 
     def makeMap1(self):
 
@@ -254,7 +244,6 @@ class Gameclass:
         return field_in_front
 
     def start(self, statements_to_execute):
-
         while 1:
             self.fillMap()
             self.drawGrid()
@@ -274,7 +263,9 @@ class Gameclass:
                         pygame.quit()
                         exit()
                     if self.print_mode:
-                        print(statements_to_execute)
-
+                        print('< ', end='')
+                        for a in statements_to_execute:
+                            print(str(a) + ', ', end='')
+                        print(' >')
 
             pygame.display.update()

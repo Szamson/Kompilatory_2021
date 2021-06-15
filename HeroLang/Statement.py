@@ -12,6 +12,9 @@ class ifStatement(Statement):
         self.body = _body
         self.cond = _cond
 
+    def __str__(self):
+        return "ifStatement"
+
     def execute(self, statement_list):
         if self.cond.getValue():
             tmp = statement_list
@@ -25,6 +28,9 @@ class functionStatement(Statement):
 
     def __init__(self, _body):
         self.body = _body
+
+    def __str__(self):
+        return "functionStatement"
 
     def execute(self, statement_list):
         print("Executing function")
@@ -42,6 +48,9 @@ class whileStatement(Statement):
         self.body = _body
         self.cond = _cond
 
+    def __str__(self):
+        return "whileStatement"
+
     def execute(self, statement_list):
         if self.cond.getValue():
             tmp = statement_list
@@ -56,6 +65,9 @@ class forwardStatement(Statement):
     def __init__(self, game):
         self.game = game
 
+    def __str__(self):
+        return "forwardStatement"
+
     def execute(self, statement_list):
         self.game.moveForward()
         print("forward")
@@ -65,6 +77,9 @@ class forwardStatement(Statement):
 class attackStatement(Statement):
     def __init__(self, game):
         self.game = game
+
+    def __str__(self):
+        return "attackStatement"
 
     def execute(self, statement_list):
         self.game.attack()
@@ -77,6 +92,9 @@ class turnStatement(Statement):
         self.game = game
         self.direction = direction
 
+    def __str__(self):
+        return "turnStatement"
+
     def execute(self, statement_list):
         self.game.turn(self.direction)
         print("turning")
@@ -87,6 +105,9 @@ class disarmStatement(Statement):
     def __init__(self, game):
         self.game = game
 
+    def __str__(self):
+        return "disarmStatement"
+
     def execute(self, statement_list):
         self.game.disarm()
         return statement_list
@@ -96,6 +117,9 @@ class forStatement(Statement):
     def __init__(self, _body, _num):
         self.body = _body
         self.num = _num
+
+    def __str__(self):
+        return "forStatement"
 
     def execute(self, statement_list):
         if self.num > 0:
@@ -110,6 +134,9 @@ class forStatement(Statement):
 class printStatement(Statement):
     def __init__(self, text):
         self.text = text.strip()
+
+    def __str__(self):
+        return "printStatement"
 
     def execute(self, statement_list):
         print(self.text.strip("\n"))

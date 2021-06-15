@@ -4,16 +4,17 @@ from HeroLang.GrammarParser import GrammarParser
 from HeroLang.HeroVisitor import HeroVisitor
 from HeroLang.FirstPassVisitor import FirstPassVisitor
 from HeroLang.Gameclass import Gameclass
+import sys
 
 
-def main(file_name, map, print_mode):
-    input = FileStream(file_name)
+def main():
+    input = FileStream(sys.argv[1])
     lexer = GrammarLexer(input)
     stream = CommonTokenStream(lexer)
     parser = GrammarParser(stream)
     tree = parser.statements()
 
-    field = Gameclass(map, print_mode)
+    field = Gameclass(str(sys.argv[2]), bool(int(sys.argv[3])))
 
     print("First pass:")
     fv = FirstPassVisitor(field)
@@ -38,6 +39,6 @@ def main(file_name, map, print_mode):
 
 
 if __name__ == '__main__':
-    main("code", 1, True)
+    main()
 
 
