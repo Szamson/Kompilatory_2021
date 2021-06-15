@@ -39,10 +39,10 @@ Do poprawnego działania wymagane są:
 * ```disarm``` - rozbraja pułapkę na polu przed sobą
 
 ### Instrukcje sterujące
-* ```if<warunek>[wyrażenia]``` - instrukcja warunkowa, wykona się, jeżeli podany warunek jest prawdziwy
-* ```while<warunek>[wyrażenia]``` - pętla wykonuje się tak długo, dopóki podany warunek jest prawdziwy
-* ```for<liczba>[wyrażenia]``` - pętla wykonująca się podaną liczbę razy (naturalna liczba większa od 0)
-* ```fun nazwa[ciało]``` - funkcja o podanej nazwie
+* ```if<warunek>(wyrażenia)``` - instrukcja warunkowa, wykona się, jeżeli podany warunek jest prawdziwy
+* ```while<warunek>(wyrażenia)``` - pętla wykonuje się tak długo, dopóki podany warunek jest prawdziwy
+* ```for<liczba>(wyrażenia)``` - pętla wykonująca się podaną liczbę razy (naturalna liczba większa od 0)
+* ```fun nazwa(ciało)``` - funkcja o podanej nazwie
 * ```nazwa``` - wywołanie funckji o podanej nazwie
 
 ### Możliwe warunki
