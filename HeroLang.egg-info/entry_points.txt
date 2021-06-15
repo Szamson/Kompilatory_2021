@@ -1,0 +1,3 @@
+[console_scripts]
+HeroLang = HeroLang.antlr:main
+

@@ -1,0 +1,40 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Nieznany </title></head><body>
+<h1 id="herolang">HeroLang</h1>
+<h2 id="ogolne-informacje">Ogólne informacje</h2>
+<p>Język HeroLang powstał na zaliczenie przedmiotu Teoria Kompilacji i Kompilatory na AGH.</p>
+<p>Głównym założeniem było stworzenie języka, który w prosty i przyjemny sposób wprowadzi młodszych użytkowników w tajniki programowania.</p>
+<h2 id="skadnia">Składnia</h2>
+<h3 id="sterowanie">Sterowanie</h3>
+<ul>
+<li><code>forward</code>- przechodzi o jedno pole, w kierunku, w którym patrzy</li>
+<li><code>turn&lt;kierunek&gt;</code> - obraca się o 90° w wybranym kierunku, kierunek: <code>left/right</code></li>
+<li><code>attack</code> - atakuje wroga przed sobą (musi patrzeć w tym kierunku)</li>
+<li><code>disarm</code> - rozbraja pułapkę na polu przed sobą</li>
+</ul>
+<h3 id="instrukcje-sterujace">Instrukcje sterujące</h3>
+<ul>
+<li><code>if&lt;warunek&gt;[wyrażenia]</code> - instrukcja warunkowa, wykona się, jeżeli podany warunek jest prawdziwy</li>
+<li><code>while&lt;warunek&gt;[wyrażenia]</code> - pętla wykonuje się tak długo, dopóki podany warunek jest prawdziwy</li>
+<li><code>for&lt;liczba&gt;[wyrażenia]</code> - pętla wykonująca się podaną liczbę razy (naturalna liczba większa od 0)</li>
+<li><code>fun nazwa[ciało]</code> - funkcja o podanej nazwie</li>
+<li><code>nazwa</code> - wywołanie funckji o podanej nazwie</li>
+</ul>
+<h3 id="mozliwe-warunki">Możliwe warunki</h3>
+<ul>
+<li><code>WALL</code> - true jeśli przed postacią jest ściana</li>
+<li><code>ENEMY</code> - true jeśli przed postacią jest wróg</li>
+<li><code>TRAP</code> -  true jeśli przed postacią jest pułapka</li>
+<li><code>TREASURE</code> - true jeśli przed postacią jest skarb</li>
+<li><code>NO</code> - negacja</li>
+<li><code>TRUE</code> - zawsze zwraca true</li>
+<li><code>FALSE</code> - zawsze zwraca false</li>
+<li><code>AND</code> - spójnik logiczny 'i'</li>
+<li><code>OR</code> - spójnik logiczny 'lub'</li>
+<li><code>[</code> i <code>]</code> - wykorzystywane do nawiasowania warunków</li>
+</ul>
+<h2 id="uruchomienie">Uruchomienie</h2>
+<p>Do poprawnego działania wymagane są:
+<em> <code>antlr</code>
+</em> <code>pygame</code>
+* <code>nympy</code></p>
+</body></html>

@@ -1,0 +1,18 @@
+while<NO TREASURE>(
+	turn left
+if<WALL>(
+	turn right
+	if<WALL>(
+		turn right
+
+		if<WALL>(
+		    turn right
+	    )
+	)
+
+)
+if<NO WALL>(
+	forward
+	)
+)
+forward
