@@ -28,7 +28,7 @@ Do poprawnego działania wymagane są:
  
  
  ```
-
+ 
 
 ## Składnia
 
